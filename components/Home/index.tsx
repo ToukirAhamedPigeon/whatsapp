@@ -20,9 +20,9 @@ const Home = () => {
       </main>
     </Authenticated>
     <Unauthenticated>
-      <div className='flex flex-col items-center justify-center h-full'>
+      <div className='flex flex-col items-center justify-center h-screen space-y-10'>
         <h1 className='text-green-700 font-bold text-3xl'>Welcome to Pigeonic WhatsApp</h1>
-        <Button asChild variant="default" className='bg-green-700 hover:bg-green-500 text-white'><SignInButton /></Button>
+        <Button asChild variant="default" className='bg-green-700 hover:bg-green-600 text-white cursor-pointer'><SignInButton /></Button>
       </div>
     </Unauthenticated>
     </>
