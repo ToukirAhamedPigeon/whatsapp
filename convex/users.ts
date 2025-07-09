@@ -76,3 +76,31 @@ export const setUserOnline = internalMutation({
 		});
 	}
 })
+
+export const getUsers = query({
+	handler: async (ctx) => {
+		const identity = await ctx.auth.getUserIdentity();
+		if (!identity) {
+			throw new Error("Not authenticated");
+		}
+		const users = await ctx.db.query("users").collect();
+		return users;
+	}
+})
+
+export const getMe = query({
+	handler: async (ctx) => {
+		const identity = await ctx.auth.getUserIdentity();
+		if (!identity) {
+			throw new Error("Not authenticated");
+		}
+		const user = await ctx.db
+			.query("users")
+			.withIndex("by_tokenIdentifier", (q) => q.eq("tokenIdentifier", identity.tokenIdentifier))
+			.unique();
+			if (!user) {
+				throw new Error("User not found");
+			}
+		return user;
+	}
+})
