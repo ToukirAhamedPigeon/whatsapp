@@ -20,7 +20,7 @@ http.route({
 					"svix-timestamp": headerPayload.get("svix-timestamp")!,
 				},
 			});
-
+			console.log("Webhook Result", result.type);
 			switch (result.type) {
 				case "user.created":
 					await ctx.runMutation(internal.users.createUser, {
@@ -30,22 +30,27 @@ http.route({
 						image: result.data.image_url,
 					});
 					break;
-				// case "user.updated":
-				// 	await ctx.runMutation(internal.users.updateUser, {
-				// 		tokenIdentifier: `${process.env.CLERK_APP_DOMAIN}|${result.data.id}`,
-				// 		image: result.data.image_url,
-				// 	});
-				// 	break;
-				// case "session.created":
-				// 	await ctx.runMutation(internal.users.setUserOnline, {
-				// 		tokenIdentifier: `${process.env.CLERK_APP_DOMAIN}|${result.data.user_id}`,
-				// 	});
-				// 	break;
-				// case "session.ended":
-				// 	await ctx.runMutation(internal.users.setUserOffline, {
-				// 		tokenIdentifier: `${process.env.CLERK_APP_DOMAIN}|${result.data.user_id}`,
-				// 	});
-				// 	break;
+				case "user.updated":
+					await ctx.runMutation(internal.users.updateUser, {
+						tokenIdentifier: `${process.env.CLERK_APP_DOMAIN}|${result.data.id}`,
+						image: result.data.image_url,
+					});
+					break;
+				case "session.created":
+					await ctx.runMutation(internal.users.setUserOnline, {
+						tokenIdentifier: `${process.env.CLERK_APP_DOMAIN}|${result.data.user_id}`,
+					});
+					break;
+				case "session.ended":
+					await ctx.runMutation(internal.users.setUserOffline, {
+						tokenIdentifier: `${process.env.CLERK_APP_DOMAIN}|${result.data.user_id}`,
+					});
+					break;
+				case "session.removed":
+					await ctx.runMutation(internal.users.setUserOffline, {
+						tokenIdentifier: `${process.env.CLERK_APP_DOMAIN}|${result.data.user_id}`,
+					});
+					break;
 			}
 
 			return new Response(null, {
