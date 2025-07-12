@@ -15,6 +15,8 @@ import { ImageIcon, MessageSquareDiff } from "lucide-react";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { DialogClose } from "@radix-ui/react-dialog";
+import toast from "react-hot-toast";
 
 const UserListDialog = () => {
 	const [selectedUsers, setSelectedUsers] = useState<Id<"users">[]>([]);
@@ -23,8 +25,10 @@ const UserListDialog = () => {
 	const [selectedImage, setSelectedImage] = useState<File | null>(null);
 	const [renderedImage, setRenderedImage] = useState("");
 	const imgRef = useRef<HTMLInputElement>(null);
+    const dialogCloseRef = useRef<HTMLButtonElement>(null);
 
     const createConversation = useMutation(api.conversations.createConversation);
+    const generateUploadUrl = useMutation(api.conversations.generateUploadUrl);
     const me = useQuery(api.users.getMe);
     const users = useQuery(api.users.getUsers);
     const handleCreateConversation = async () => {
@@ -40,10 +44,29 @@ const UserListDialog = () => {
                })
             }
             else{
-              
+                const postUrl = await generateUploadUrl();
+                const result = await fetch(postUrl,{
+                    method:"POST",
+                    headers: {"Content-Type":selectedImage?.type!},
+                    body:selectedImage
+                })
+                const {storageId} = await result.json();
+                conversationId= await createConversation({
+                    participants: [...selectedUsers,me?._id!],
+                    isGroup:true,
+                    admin:me?._id!,
+                    groupName,
+                    groupImage:storageId
+                })
             }
+            dialogCloseRef.current?.click();
+            setSelectedUsers([]);
+            setGroupName("");
+            setSelectedImage(null);
+            setRenderedImage("");
         }
         catch(e){
+            toast.error("Failed to create conversation.");
             console.error(e);
         }
         finally{
@@ -65,6 +88,7 @@ const UserListDialog = () => {
 			</DialogTrigger>
 			<DialogContent className="bg-white dark:bg-black">
 				<DialogHeader>
+                    <DialogClose ref={dialogCloseRef}/>
 					<DialogTitle>USERS</DialogTitle>
 				</DialogHeader>
 
