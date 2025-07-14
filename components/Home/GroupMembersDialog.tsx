@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Crown } from "lucide-react";
-import { Conversation } from "@/convex/store/chat_store";
+import { Conversation } from "@/store/chat_store";
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
 

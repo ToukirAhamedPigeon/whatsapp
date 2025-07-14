@@ -5,7 +5,7 @@ import MessageInput from "./MessageInput";
 import MessageContainer from "./MessageContainer";
 import ChatPlaceHolder from "./ChatPlaceHolder"
 import GroupMembersDialog from "./GroupMembersDialog";
-import { useConversationStore } from "@/convex/store/chat_store";
+import { useConversationStore } from "@/store/chat_store";
 
 const RightPanel = () => {
 	const {selectedConversation, setSelectedConversation} = useConversationStore();
