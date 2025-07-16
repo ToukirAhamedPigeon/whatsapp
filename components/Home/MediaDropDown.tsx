@@ -33,6 +33,7 @@ const MediaDropDown = () => {
                 headers:{
                     "Content-Type": selectedImage!.type,
                 },
+                body:selectedImage
             })
             const {storageId} = await result.json();
             await sendImage({
@@ -49,12 +50,38 @@ const MediaDropDown = () => {
         }
     }
 
+    const handleSendVideo = async () => {
+    	setIsLoading(true);
+        try{
+        	const postUrl = await generateUploadUrl();
+            const result = await fetch(postUrl,{
+                method:"POST",
+                headers:{
+                    "Content-Type": selectedVideo!.type,
+                },
+                body: selectedVideo,
+            })
+            const {storageId} = await result.json();
+            await sendVideo({
+            	conversation: selectedConversation!._id,
+                videoId: storageId,
+                sender: me!._id,
+            })
+            setSelectedVideo(null);
+        }
+        catch(err){
+        	toast.error("Failed to upload video");
+        } finally{
+            setIsLoading(false);
+        }
+    }
+
     return (
         <>
             <input type='file' ref={imageInput} accept='image/*' onChange={(e) => setSelectedImage(e.target.files![0])} hidden/>
             <input type='file' ref={videoInput} accept='video/mp4' onChange={(e) => setSelectedVideo(e.target.files![0])} hidden/>
             {selectedImage && (<MediaImageDialog isOpen={true} onClose={() => setSelectedImage(null)} selectedImage={selectedImage} isLoading={isLoading} handleSendImage={handleSendImage}/>)}
-            {selectedVideo && (<MediaVideoDialog isOpen={selectedVideo !== null} onClose={() => setSelectedVideo(null)} selectedVideo={selectedVideo} isLoading={isLoading} handleSendVideo={()=>{}} />)}
+            {selectedVideo && (<MediaVideoDialog isOpen={selectedVideo !== null} onClose={() => setSelectedVideo(null)} selectedVideo={selectedVideo} isLoading={isLoading} handleSendVideo={handleSendVideo} />)}
             <DropdownMenu>
                 <DropdownMenuTrigger>
                     <Plus className='cursor-pointer hover:border-none active:border-none'/>
@@ -129,14 +156,14 @@ const MediaVideoDialog = ({ isOpen, onClose, selectedVideo, isLoading, handleSen
 				if (!isOpen) onClose();
 			}}
 		>
-			<DialogContent>
-                <DialogTitle>Video</DialogTitle>
+			<DialogContent className="bg-slate-100 dark:bg-gray-900">
+                <DialogTitle></DialogTitle>
 				<div className='w-full'>
                 {renderedVideo && (
                     <ReactPlayer url={renderedVideo} controls width='100%' />
                     )}
 				</div>
-				<Button className='w-full cursor-pointer' disabled={isLoading} onClick={handleSendVideo}>
+				<Button className='w-full dark:bg-white text-black cursor-pointer' disabled={isLoading} onClick={handleSendVideo}>
 					{isLoading ? "Sending..." : "Send"}
 				</Button>
 			</DialogContent>
