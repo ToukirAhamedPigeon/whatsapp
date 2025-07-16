@@ -97,3 +97,41 @@ export const getMessages = query({
 //         return messagesWithSender;
 //     }
 // })
+
+export const sendImage = mutation({
+    args:{
+       imgId: v.id("_storage"), sender: v.id("users"), conversation: v.id("conversations"),
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if(!identity){
+            throw new ConvexError("Called sendImage without authentication present");
+        }
+        const content = (await ctx.storage.getUrl(args.imgId)) as string;
+        await ctx.db.insert("messages", {
+            sender:args.sender,
+            content,
+            conversation:args.conversation,
+            messageType:"image",
+        })
+    }
+})
+
+export const sendVideo = mutation({
+    args:{
+       videoId: v.id("_storage"), sender: v.id("users"), conversation: v.id("conversations"),
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if(!identity){
+            throw new ConvexError("Called sendImage without authentication present");
+        }
+        const content = (await ctx.storage.getUrl(args.videoId)) as string;
+        await ctx.db.insert("messages", {
+            sender:args.sender,
+            content,
+            conversation:args.conversation,
+            messageType:"video",
+        })
+    }
+})

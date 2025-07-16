@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  images: {
+    remotePatterns:[
+      {hostname: "silent-retriever-83.convex.cloud"},
+    ]
+  }
 };
 
 export default nextConfig;

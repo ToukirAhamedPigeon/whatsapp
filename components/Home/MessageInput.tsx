@@ -8,6 +8,7 @@ import { useConversationStore } from "@/store/chat_store";
 import toast from "react-hot-toast";
 import useComponentVisible from "@/hooks/useComponentVisible";
 import EmojiPicker, {Theme} from "emoji-picker-react"
+import MediaDropDown from "./MediaDropDown";
 
 const MessageInput = () => {
 	const [msgText, setMsgText] = useState("");
@@ -47,7 +48,7 @@ const MessageInput = () => {
 					)}
 					<Laugh className='text-gray-600 dark:text-gray-400 cursor-pointer' />
 				</div>
-				<Plus className='text-gray-600 dark:text-gray-400' />
+				<MediaDropDown/>
 			</div>
 			<form onSubmit={handleSendTextMsg} className='w-full flex gap-3'>
 				<div className='flex-1'>

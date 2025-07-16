@@ -2,6 +2,10 @@ import { MessageSeenSvg } from "@/lib/svgs";
 import { IMessage, useConversationStore } from "@/store/chat_store";
 import ChatBubbleAvatar from "./ChatBubbleAvatar";
 import DateIndicator from "./DateIndicator";
+import Image from "next/image";
+import { useState } from "react";
+import { Dialog, DialogDescription } from "@radix-ui/react-dialog";
+import { DialogContent, DialogHeader } from "../ui/dialog";
 
 type ChatBubbleProps = {
 	me: any;
@@ -20,6 +24,7 @@ const ChatBubble = ({me,message,previousMessage}:ChatBubbleProps) => {
 	const isGroup =selectedConversation!.isGroup;
 	const fromMe =message.sender._id === me?._id;
 	const bgClass = fromMe ? "bg-green-chat" : "bg-white dark:bg-gray-primary";
+	const [open, setOpen] = useState(false);
 	if(!fromMe){
 		return (
 			<>
@@ -28,7 +33,9 @@ const ChatBubble = ({me,message,previousMessage}:ChatBubbleProps) => {
 					<ChatBubbleAvatar isGroup={isGroup} isMember={isMember} message={message}/>
 					<div className={`flex flex-col z-20 max-w-fit px-2 pt-1 rounded-md shadow-md relative ${bgClass}`}>
 						<OtherMessageIndicator/>
-						<TextMessage message={message}/>
+						{message.messageType === "text" && <TextMessage message={message}/>}
+						{message.messageType === "image" && <ImageMessage message={message} handleClick={()=> setOpen(true)}/>}
+						{open && <ImageDialog src={message.content} open={open} onClose={()=> setOpen(true)}/>}
 						<MessageTime time={time} fromMe={fromMe}/>
 					</div>
 				</div>
@@ -42,7 +49,9 @@ const ChatBubble = ({me,message,previousMessage}:ChatBubbleProps) => {
 			<div className="flex gap-1 w-2/3 ml-auto">
 				<div className={`flex z-20 max-w-fit px-2 pt-1 rounded-md shadow-md ml-auto relative ${bgClass}`}>
 					<SelfMessageIndicator/>
-					<TextMessage message={message}/>
+					{message.messageType === "text" && <TextMessage message={message}/>}
+					{message.messageType === "image" && <ImageMessage message={message} handleClick={()=> setOpen(true)}/>}
+					{open && <ImageDialog src={message.content} open={open} onClose={()=> setOpen(true)}/>}
 					<MessageTime time={time} fromMe={fromMe}/>
 				</div>
 			</div>
@@ -51,6 +60,38 @@ const ChatBubble = ({me,message,previousMessage}:ChatBubbleProps) => {
 	}
 };
 export default ChatBubble;
+
+const ImageDialog = ({src,open,onClose}:{src:string,open:boolean, onClose:()=>void}) => {
+	return (
+		<Dialog open={open} onOpenChange={(isOpen) => { if(!isOpen) onClose(); }}>
+			<DialogContent className="min-w-[750px]">
+				<DialogHeader></DialogHeader>
+				<DialogDescription>
+					<Image
+						src={src}
+						fill
+						className='object-contain rounded-lg'
+						alt="image"
+					/>
+				</DialogDescription>
+			</DialogContent>
+		</Dialog>
+	)
+}
+
+const ImageMessage = ({message,handleClick}:{message:IMessage; handleClick: () =>void}) => {
+	return (
+		<div className="w-[250px] h-[250px] m-2 relative">
+			<Image
+				src={message.content}
+				fill 
+				className='cursor-pointer object-cover rounded'
+				alt="image"
+				onClick={handleClick}
+			/>
+		</div>
+	)
+}
 
 const MessageTime = ({time,fromMe}:{time:string,fromMe:boolean}) => {
 	return (
