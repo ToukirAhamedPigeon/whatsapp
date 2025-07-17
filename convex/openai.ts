@@ -26,9 +26,10 @@ export const chat =action({
       ]
     })
     const messageContent = res.choices[0].message.content;
-    await ctx.runMutation(api.messages.sendChatGPTMessage,{
+    await ctx.runMutation(api.messages.sendAIMessage,{
         content:messageContent ?? "I'm sorry, I couldn't answer that question.",
-        conversation:args.conversation
+        conversation:args.conversation,
+        messageType:"text"
     })
   }
 })

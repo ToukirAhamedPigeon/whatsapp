@@ -3,16 +3,28 @@ import ChatBubble from "./ChatBubble";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useConversationStore } from "@/store/chat_store";
+import { useEffect, useRef } from "react";
 
 const MessageContainer = () => {
 	const {selectedConversation} = useConversationStore()
 	const messages = useQuery(api.messages.getMessages,{conversation: selectedConversation!._id });
 	const me = useQuery(api.users.getMe);
+	const lastMessageRef = useRef<HTMLDivElement>(null);
+	useEffect(() => {
+		setTimeout(() => {
+			if (lastMessageRef.current) {
+				lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
+			}
+		}, 100);
+		if (lastMessageRef.current) {
+			lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
+		}
+	}, [messages]);
 	return (
 		<div className='relative p-3 flex-1 overflow-auto h-full bg-chat-tile-light dark:bg-chat-tile-dark'>
-			<div className='mx-12 flex flex-col gap-3 h-full'>
+			<div className='mx-12 flex flex-col gap-3'>
 				{messages?.map((msg, idx) => (
-					<div key={msg._id}>
+					<div key={msg._id} ref={lastMessageRef}>
 						<ChatBubble 
 						message={msg}
 						me={me}

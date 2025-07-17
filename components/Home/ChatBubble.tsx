@@ -56,7 +56,7 @@ const ChatBubble = ({me,message,previousMessage}:ChatBubbleProps) => {
 							me={me}
 						/>}
 						{renderMessageContent()}
-						{open && <ImageDialog src={message.content} open={open} onClose={()=> setOpen(true)}/>}
+						{open && <ImageDialog src={message.content} open={open} onClose={()=> setOpen(false)}/>}
 						<MessageTime time={time} fromMe={fromMe}/>
 					</div>
 				</div>
@@ -85,24 +85,26 @@ const VideoMessage = ({message}:{message:IMessage}) => {
 	return <ReactPlayer url={message.content} width="250px" height="180px" controls={true} light={true} />
 }
 
-const ImageDialog = ({src,open,onClose}:{src:string,open:boolean, onClose:()=>void}) => {
+const ImageDialog = ({ src, open, onClose }: { src: string; open: boolean; onClose: () => void }) => {
 	return (
-		<Dialog open={open} onOpenChange={(isOpen) => { if(!isOpen) onClose() }}>
-			<DialogContent className="min-w-[750px] bg-white dark:bg-gray-950">
-				<DialogTitle></DialogTitle>
-				<DialogDescription>
-					<Image
-						src={src}
-						width={500} // Or any default width
-  						height={800} 
-						className='object-contain rounded-lg max-h-[80vh] w-auto mx-auto'
-						alt="image"
-					/>
-				</DialogDescription>
-			</DialogContent>
-		</Dialog>
-	)
-}
+	  <Dialog open={open} onOpenChange={(isOpen) => {
+		if (!isOpen) onClose(); // Ensures state update on backdrop click or Escape
+	  }}>
+		<DialogContent className="min-w-[750px] bg-white dark:bg-gray-950">
+		  <DialogTitle></DialogTitle>
+		  <DialogDescription>
+			<Image
+			  src={src}
+			  width={500}
+			  height={800}
+			  className="object-contain rounded-lg max-h-[80vh] w-auto mx-auto"
+			  alt="image"
+			/>
+		  </DialogDescription>
+		</DialogContent>
+	  </Dialog>
+	);
+  };
 
 const ImageMessage = ({message,handleClick}:{message:IMessage; handleClick: () =>void}) => {
 	return (
