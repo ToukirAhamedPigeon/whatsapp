@@ -57,7 +57,7 @@ const ChatAvaterActions = ({message,me}:ChatAvaterActionsProps) => {
   }
   return (
     <div className='text-[11px] flex gap-4 justify-between font-bold cursor-pointer group' onClick={handleCreateConversation}>
-      {message.sender.name}
+      {isGroup && message.sender.name}
       {!isMember && !fromAI && isGroup && <Ban size={16} className="text-red-500" />}
       {isGroup  && isMember && selectedConversation?.admin === me._id && (
         <LogOut size={16} className='text-red-500 opacity-0 group-hover:opacity-100' onClick={handleKickUser}/>
