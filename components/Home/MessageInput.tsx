@@ -68,7 +68,7 @@ const MessageInput = () => {
 						<Button
 							type='submit'
 							size={"sm"}
-							className='bg-transparent text-foreground hover:bg-transparent'
+							className='bg-transparent text-foreground hover:bg-transparent cursor-pointer'
 						>
 							<Send />
 						</Button>
@@ -76,7 +76,7 @@ const MessageInput = () => {
 						<Button
 							type='submit'
 							size={"sm"}
-							className='bg-transparent text-foreground hover:bg-transparent'
+							className='bg-transparent text-foreground hover:bg-transparent cursor-pointer'
 						>
 							<Mic />
 						</Button>
