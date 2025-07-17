@@ -20,7 +20,7 @@ export const chat = action({
         {
           role: "system",
           content:
-            "You are a terse bot in a group chat responding to questions with max 3-sentence answers.",
+            "You are a terse bot in a group chat responding to questions with answers.",
         },
         {
           role: "user",
