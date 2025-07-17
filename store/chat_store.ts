@@ -1,4 +1,4 @@
-import {Id} from "../../convex/_generated/dataModel";
+import {Id} from "@/convex/_generated/dataModel";
 import {create} from "zustand";
 
 export type Conversation = {
@@ -10,7 +10,7 @@ export type Conversation = {
     groupImage?: string;
     groupName?: string;
     admin: Id<"users">;
-    lastMessage: {
+    lastMessage?: {
         _id: Id<"messages">;
         conversation: Id<"conversations">;
         content: string;
