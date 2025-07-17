@@ -57,8 +57,8 @@ export const image = action({
       try {
         // Step 1: Generate image blob from model
         const imageBlob = await client.textToImage({
-            provider: "fal-ai",
-            model: "ByteDance/Hyper-SD",
+            provider: "replicate",
+            model: "SG161222/Realistic_Vision_V5.1_noVAE",
           inputs: args.messageBody,
           parameters: {
             width: 1024,
