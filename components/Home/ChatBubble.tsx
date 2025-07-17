@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Dialog, DialogDescription } from "@radix-ui/react-dialog";
 import { DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import ReactPlayer from "react-player";
+import ChatAvaterActions from "./ChatAvaterActions";
 
 type ChatBubbleProps = {
 	me: any;
@@ -47,6 +48,10 @@ const ChatBubble = ({me,message,previousMessage}:ChatBubbleProps) => {
 					<ChatBubbleAvatar isGroup={isGroup} isMember={isMember} message={message}/>
 					<div className={`flex flex-col z-20 max-w-fit px-2 pt-1 rounded-md shadow-md relative ${bgClass}`}>
 						<OtherMessageIndicator/>
+						{isGroup && <ChatAvaterActions
+							message={message}
+							me={me}
+						/>}
 						{renderMessageContent()}
 						{open && <ImageDialog src={message.content} open={open} onClose={()=> setOpen(true)}/>}
 						<MessageTime time={time} fromMe={fromMe}/>

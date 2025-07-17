@@ -6,10 +6,21 @@ import { UserButton } from "@clerk/nextjs";
 import UserListDialog from "./UserListDialog";
 import {useConvexAuth, useQuery} from "convex/react"
 import { api } from "@/convex/_generated/api";
+import { useEffect } from "react";
+import { useConversationStore } from "@/store/chat_store";
 
 const LeftPanel = () => {
-	const {isAuthenticated} = useConvexAuth()
+	const {isAuthenticated, isLoading} = useConvexAuth()
 	const conversations = useQuery(api.conversations.getMyConversations, isAuthenticated ? undefined: "skip");
+	const {selectedConversation,setSelectedConversation} = useConversationStore()
+	useEffect(() => {
+		const convesationIds = conversations?.map((conversation)=>conversation._id);
+		if(selectedConversation && convesationIds && !convesationIds?.includes(selectedConversation._id)){
+			setSelectedConversation(null)
+		}
+	}, [conversations, selectedConversation, setSelectedConversation])
+
+	if(isLoading) return null;
 	return (
 		<div className='w-1/4 border-gray-600 border-r'>
 			<div className='sticky top-0 bg-left-panel z-10'>
