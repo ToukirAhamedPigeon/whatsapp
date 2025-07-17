@@ -74,7 +74,7 @@ const ChatBubble = ({me,message,previousMessage}:ChatBubbleProps) => {
 export default ChatBubble;
 
 const VideoMessage = ({message}:{message:IMessage}) => {
-	return <ReactPlayer url={message.content} width="250px" height="180px" controls={true}	 />
+	return <ReactPlayer url={message.content} width="250px" height="180px" controls={true} light={true} />
 }
 
 const ImageDialog = ({src,open,onClose}:{src:string,open:boolean, onClose:()=>void}) => {
