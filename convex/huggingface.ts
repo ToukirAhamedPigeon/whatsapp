@@ -9,7 +9,8 @@ import { generateUploadUrl } from "./conversations";
 
 const openai = new OpenAI({
   apiKey: process.env.HUGGINGFACE_API_KEY, // Your Hugging Face or Fireworks token
-  baseURL: "https://router.huggingface.co/fireworks-ai/inference/v1",
+  // baseURL: "https://router.huggingface.co/fireworks-ai/inference/v1",
+  baseURL: "https://router.huggingface.co/together/v1",
 });
 
 export const chat = action({
@@ -19,7 +20,8 @@ export const chat = action({
   },
   handler: async (ctx, args) => {
     const res = await openai.chat.completions.create({
-      model: "accounts/fireworks/models/deepseek-r1-0528", // Fireworks model name
+      // model: "accounts/fireworks/models/deepseek-r1-0528", // Fireworks model name
+      model: "moonshotai/Kimi-K2-Instruct", // Fireworks model name
       messages: [
         {
           role: "system",
