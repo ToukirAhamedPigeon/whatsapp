@@ -27,7 +27,7 @@ const ChatListMb = () => {
                 <SheetTitle className='px-4 pt-4'>
                     <HeaderTools/>
                 </SheetTitle>
-                <div className='w-full bg-gray-900 pointer-events-auto'>
+                <div className='w-full h-full dark:bg-gray-900 pointer-events-auto'>
                     {/* <HeaderSearch/> */}
                     <ChatList onConversationClick={handleConversationClick}/>
                 </div>
