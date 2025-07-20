@@ -7,7 +7,7 @@ import { api } from "@/convex/_generated/api";
 import { useConversationStore } from "@/store/chat_store";
 import ChatListMb from "./ChatListMb";
 
-const Conversation = ({ conversation }: { conversation: any }) => {
+const Conversation = ({ conversation, onClick }: { conversation: any, onClick?: () => void }) => {
 	const conversationImage = conversation.groupImage || conversation.image;
 	const conversationName = conversation.groupName || conversation.name;
 	const lastMessage = conversation.lastMessage;
@@ -15,9 +15,13 @@ const Conversation = ({ conversation }: { conversation: any }) => {
 	const me = useQuery(api.users.getMe);
 	const {setSelectedConversation,selectedConversation} = useConversationStore()
 	const activeBgClass = selectedConversation?._id === conversation._id;
+	const handleClick = () => {
+		setSelectedConversation(conversation);
+		onClick?.(); // trigger Sheet close
+	  };
 	return (
 		<>
-			<div className={`flex gap-2 items-center p-3 hover:bg-chat-hover cursor-pointer ${activeBgClass ? "bg-gray-tertiary": ""}`} onClick={()=>setSelectedConversation(conversation)}>
+			<div className={`flex gap-2 items-center p-3 hover:bg-chat-hover cursor-pointer ${activeBgClass ? "bg-gray-tertiary": ""}`} onClick={handleClick}>
 				<Avatar className='border border-gray-900 overflow-visible relative'>
 					{conversation.isOnline && (
 						<div className='absolute top-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-foreground' />

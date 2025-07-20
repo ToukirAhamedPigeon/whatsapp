@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Menu} from "lucide-react";
 import { ListFilter, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -12,19 +12,24 @@ import ChatList from './ChatList';
 import { HeaderTools } from './Headermb';
 
 const ChatListMb = () => {
+    const [open, setOpen] = useState(false);
+
+  const handleConversationClick = () => {
+    setOpen(false); // close the sheet
+  };
   return (
     <div className="block md:hidden">
-        <Sheet >
-            <SheetTrigger>
+        <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
                 <Menu className="w-6 h-6 text-white" />
             </SheetTrigger>
-            <SheetContent side="left" className="w-[90%] bg-white dark:bg-gray-800">
+            <SheetContent side="left" className="w-[90%] bg-white dark:bg-gray-800 transition-all duration-300 ease-in-out">
                 <SheetTitle className='px-4 pt-4'>
                     <HeaderTools/>
                 </SheetTitle>
                 <div className='w-full bg-gray-900'>
                     <HeaderSearch/>
-                    <ChatList/>
+                    <ChatList onConversationClick={handleConversationClick}/>
                 </div>
             </SheetContent>
         </Sheet>

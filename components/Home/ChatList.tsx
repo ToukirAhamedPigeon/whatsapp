@@ -5,7 +5,7 @@ import { useConversationStore } from "@/store/chat_store";
 import {useConvexAuth, useQuery} from "convex/react"
 import Conversation from "./Conversation";
 
-const ChatList = () => {
+const ChatList = ({ onConversationClick }: { onConversationClick?: () => void }) => {
     const {isAuthenticated, } = useConvexAuth()
     const conversations = useQuery(api.conversations.getMyConversations, isAuthenticated ? undefined: "skip");
 	const {selectedConversation,setSelectedConversation} = useConversationStore()
@@ -18,7 +18,7 @@ const ChatList = () => {
   return (
         <div className='my-3 flex flex-col gap-0 max-h-[80%] overflow-auto'>
             {conversations?.map((conversation)=>(
-                <Conversation key={conversation._id} conversation={conversation}/>
+                <Conversation key={conversation._id} conversation={conversation} onClick={onConversationClick}/>
             ))}
 
             {conversations?.length === 0 && (
