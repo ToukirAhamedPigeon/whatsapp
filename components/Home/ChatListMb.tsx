@@ -21,14 +21,14 @@ const ChatListMb = () => {
     <div className="block md:hidden">
         <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-                <Menu className="w-6 h-6 text-white" />
+                <Menu className="w-6 h-6 dark:text-white" />
             </SheetTrigger>
-            <SheetContent side="left" className="w-[90%] bg-white dark:bg-gray-800 transition-all duration-300 ease-in-out">
+            <SheetContent side="left" className="w-[90%] bg-white dark:bg-gray-800 transition-all duration-300 ease-in-out z-50">
                 <SheetTitle className='px-4 pt-4'>
                     <HeaderTools/>
                 </SheetTitle>
-                <div className='w-full bg-gray-900'>
-                    <HeaderSearch/>
+                <div className='w-full bg-gray-900 pointer-events-auto'>
+                    {/* <HeaderSearch/> */}
                     <ChatList onConversationClick={handleConversationClick}/>
                 </div>
             </SheetContent>
