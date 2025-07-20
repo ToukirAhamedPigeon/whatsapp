@@ -21,7 +21,9 @@ export const HeaderTools= ({userBtnPos="left"}:{userBtnPos?:string}) => {
 	const {isAuthenticated} = useConvexAuth()
 	return (
 		<div className='flex items-center gap-3'>
-			{userBtnPos==="left" && <UserButton />}
+			{userBtnPos==="left" && <UserButton appearance={{
+          elements: { userButtonPopoverCard: { pointerEvents: "initial" } },
+        }}/>}
 			{isAuthenticated && <UserListDialog />}
 			<SwitchTheme />
 			{userBtnPos==="right" && <UserButton/>}

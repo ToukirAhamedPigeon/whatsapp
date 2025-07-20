@@ -21,8 +21,8 @@ const Home = () => {
     </Authenticated>
     <Unauthenticated>
       <div className='flex flex-col items-center justify-center h-screen space-y-10'>
-        <h1 className='text-blue-700 font-bold text-3xl text-center'>Welcome to Pigeonic Chat AI</h1>
-        <Button asChild variant="default" className='bg-blue-700 hover:bg-blue-600 text-white cursor-pointer'><SignInButton /></Button>
+        <h1 className='text-blue-500 font-bold text-3xl text-center'>Welcome to Pigeonic Chat AI</h1>
+        <Button asChild variant="default" className='bg-blue-600 hover:bg-blue-500 text-white cursor-pointer'><SignInButton /></Button>
       </div>
     </Unauthenticated>
     </>

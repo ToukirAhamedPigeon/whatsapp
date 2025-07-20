@@ -9,8 +9,8 @@ import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "WhatsApp",
-  description: "WhatsApp Clone Application",
+  title: "Chat AI",
+  description: "Chat Application by Pigeonic powered by AI",
 };
 
 export default function RootLayout({
