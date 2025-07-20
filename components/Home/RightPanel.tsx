@@ -7,6 +7,7 @@ import ChatPlaceHolder from "./ChatPlaceHolder"
 import GroupMembersDialog from "./GroupMembersDialog";
 import { useConversationStore } from "@/store/chat_store";
 import { useConvexAuth } from "convex/react";
+import Header from "./Header";
 
 const RightPanel = () => {
 	const {selectedConversation, setSelectedConversation} = useConversationStore();
@@ -18,9 +19,9 @@ const RightPanel = () => {
 	const conversationImage = selectedConversation.groupImage || selectedConversation.image;
 
 	return (
-		<div className='w-3/4 flex flex-col'>
+		<div className='w-full md:w-3/4 flex flex-col'>
 			<div className='w-full sticky top-0 z-50'>
-				{/* Header */}
+				<Header/>
 				<div className='flex justify-between bg-gray-primary p-3'>
 					<div className='flex gap-3 items-center'>
 						<Avatar>
