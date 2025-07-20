@@ -12,7 +12,7 @@ const ChatPlaceHolder = () => {
 				<div className='flex flex-col items-center w-full justify-center py-10 gap-4'>
 					<Image src={"/desktop-hero.png"} alt='Hero' width={320} height={188} />
 					<p className='text-4xl font-extralight mt-5 mb-2'>Chat AI</p>
-					<p className='w-1/2 text-center text-gray-primary text-sm text-muted-foreground'>
+					<p className='w-4/5 md:w-1/2 text-center text-gray-primary text-sm text-muted-foreground'>
 						Make calls, share your screen and get GenAI as third person in your chat.
 					</p>
 				</div>

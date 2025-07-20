@@ -21,7 +21,6 @@ const RightPanel = () => {
 	return (
 		<div className='w-full md:w-3/4 flex flex-col'>
 			<div className='w-full sticky top-0 z-50'>
-				<Header/>
 				<div className='flex justify-between bg-gray-primary p-3'>
 					<div className='flex gap-3 items-center'>
 						<Avatar>
