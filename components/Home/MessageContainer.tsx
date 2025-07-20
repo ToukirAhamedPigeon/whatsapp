@@ -21,8 +21,8 @@ const MessageContainer = () => {
 		}
 	}, [messages]);
 	return (
-		<div className='relative p-3 flex-1 overflow-auto h-full bg-chat-tile-light dark:bg-chat-tile-dark'>
-			<div className='mx-12 flex flex-col gap-3'>
+		<div className='overflow-x-hidden w-full relative p-3 flex-1 overflow-auto h-full bg-chat-tile-light dark:bg-chat-tile-dark'>
+			<div className='mx-2 md:mx-12 flex flex-col gap-3'>
 				{messages?.map((msg, idx) => (
 					<div key={msg._id} ref={lastMessageRef}>
 						<ChatBubble 

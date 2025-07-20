@@ -8,6 +8,7 @@ import GroupMembersDialog from "./GroupMembersDialog";
 import { useConversationStore } from "@/store/chat_store";
 import { useConvexAuth } from "convex/react";
 import Header from "./Header";
+import ChatListMb from "./ChatListMb";
 
 const RightPanel = () => {
 	const {selectedConversation, setSelectedConversation} = useConversationStore();
@@ -23,6 +24,7 @@ const RightPanel = () => {
 			<div className='w-full sticky top-0 z-50'>
 				<div className='flex justify-between bg-gray-primary p-3'>
 					<div className='flex gap-3 items-center'>
+						<ChatListMb/>
 						<Avatar>
 							<AvatarImage src={conversationImage || "/placeholder.png"} className='object-cover' />
 							<AvatarFallback>

@@ -5,6 +5,7 @@ import { ImageIcon, Users, VideoIcon } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useConversationStore } from "@/store/chat_store";
+import ChatListMb from "./ChatListMb";
 
 const Conversation = ({ conversation }: { conversation: any }) => {
 	const conversationImage = conversation.groupImage || conversation.image;

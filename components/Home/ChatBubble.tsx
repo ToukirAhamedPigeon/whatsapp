@@ -46,7 +46,7 @@ const ChatBubble = ({me,message,previousMessage}:ChatBubbleProps) => {
 		return (
 			<>
 				<DateIndicator message={message} previousMessage={previousMessage}/>
-				<div className="flex gap-1 w-2/3">
+				<div className="flex gap-1 w-4/5 md:w-2/3">
 					<ChatBubbleAvatar isGroup={isGroup} isMember={isMember} message={message} fromAI={fromAI}/>
 					<div className={`flex flex-col z-20 max-w-fit px-2 pt-1 rounded-md shadow-md relative ${bgClass}`}>
 						{!fromAI && <OtherMessageIndicator/>}
@@ -67,7 +67,7 @@ const ChatBubble = ({me,message,previousMessage}:ChatBubbleProps) => {
 		return (
 			<>
 			<DateIndicator message={message} previousMessage={previousMessage}/>
-			<div className="flex gap-1 w-2/3 ml-auto">
+			<div className="flex gap-1 w-4/5 md:w-2/3 ml-auto">
 				<div className={`flex z-20 max-w-fit px-2 pt-1 rounded-md shadow-md ml-auto relative ${bgClass}`}>
 					<SelfMessageIndicator/>
 					{renderMessageContent()}
@@ -81,16 +81,26 @@ const ChatBubble = ({me,message,previousMessage}:ChatBubbleProps) => {
 };
 export default ChatBubble;
 
-const VideoMessage = ({message}:{message:IMessage}) => {
-	return <ReactPlayer url={message.content} width="250px" height="180px" controls={true} light={true} />
-}
+const VideoMessage = ({ message }: { message: IMessage }) => {
+	return (
+	  <div className="w-[100px] h-[80px] md:w-[250px] md:h-[180px] overflow-hidden rounded">
+		<ReactPlayer
+		  url={message.content}
+		  width="100%"
+		  height="100%"
+		  controls
+		  light
+		/>
+	  </div>
+	);
+  };
 
 const ImageDialog = ({ src, open, onClose }: { src: string; open: boolean; onClose: () => void }) => {
 	return (
 	  <Dialog open={open} onOpenChange={(isOpen) => {
 		if (!isOpen) onClose(); // Ensures state update on backdrop click or Escape
 	  }}>
-		<DialogContent className="min-w-[750px] bg-white dark:bg-gray-950">
+		<DialogContent className="md:min-w-[750px] bg-white dark:bg-gray-950">
 		  <DialogTitle></DialogTitle>
 		  <DialogDescription>
 			<Image
@@ -108,7 +118,7 @@ const ImageDialog = ({ src, open, onClose }: { src: string; open: boolean; onClo
 
 const ImageMessage = ({message,handleClick}:{message:IMessage; handleClick: () =>void}) => {
 	return (
-		<div className="w-[250px] h-[250px] m-2 relative">
+		<div className="w-[100px] h-[100px] md:w-[250px] md:h-[250px] m-2 relative">
 			<Image
 				src={message.content}
 				fill 

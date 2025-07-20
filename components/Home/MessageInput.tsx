@@ -33,7 +33,7 @@ const MessageInput = () => {
 	};
 	return (
 		<div className='bg-gray-primary p-2 flex gap-4 items-center'>
-			<div className='relative flex gap-2 ml-2'>
+			<div className='relative flex gap-2 md:ml-2'>
 				{/* EMOJI PICKER WILL GO HERE */}
 				<div ref={ref} onClick={() => setIsComponentVisible(true)}>
 					{isComponentVisible && (
@@ -50,7 +50,7 @@ const MessageInput = () => {
 				</div>
 				<MediaDropDown/>
 			</div>
-			<form onSubmit={handleSendTextMsg} className='w-full flex gap-3'>
+			<form onSubmit={handleSendTextMsg} className='w-full flex md:gap-3'>
 				<div className='flex-1'>
 					<Input
 						type='text'
@@ -63,7 +63,7 @@ const MessageInput = () => {
 						onChange={(e) => setMsgText(e.target.value)}
 					/>
 				</div>
-				<div className='mr-4 flex items-center gap-3'>
+				<div className='md:mr-4 flex items-center md:gap-3'>
 					{msgText.length > 0 ? (
 						<Button
 							type='submit'
