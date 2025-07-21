@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className='dark' suppressHydrationWarning>
       <body
-        className={`${inter.className} antialiased bg-[#e1ecf1] dark:bg-black`}
+        className={`${inter.className} antialiased bg-[#f7e8a9]/50 dark:bg-black`}
       >
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
           <ClerkProvider>
