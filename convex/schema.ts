@@ -1,4 +1,3 @@
-import { conversations } from '@/dummy-data/db'
 import {defineSchema, defineTable} from 'convex/server'
 import {v} from 'convex/values'
 
